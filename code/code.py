@@ -81,7 +81,7 @@ def calculate_average_sale_per_season(data):
     return season_total
 
 def get_highest_sales_season(data):
-    """Find which season has the highest total sales"""
+    #Find which season has the highest total sales
     season_totals = {}
     
     # Calculate total sales for each season
@@ -101,18 +101,69 @@ def get_highest_sales_season(data):
     else:
         return None, 0, {}
 
+def get_most_popular_coffee_per_season(data):
+    #Find which coffee is ordered the most during each season"
+    season_coffee_counts = {}
+    
+    # Count coffee orders for each season
+    for row in data:
+        season = row['Season']
+        coffee = row['coffee_name']
+        
+        if season:
+            if season not in season_coffee_counts:
+                season_coffee_counts[season] = {}
+            
+            if coffee not in season_coffee_counts[season]:
+                season_coffee_counts[season][coffee] = 0
+                
+            season_coffee_counts[season][coffee] += 1
+    
+    # Find most popular coffee for each season
+    most_popular_by_season = {}
+    for season, coffee_counts in season_coffee_counts.items():
+        if coffee_counts:  # Make sure there are coffees for this season
+            most_popular_coffee = max(coffee_counts, key=coffee_counts.get)
+            order_count = coffee_counts[most_popular_coffee]
+            most_popular_by_season[season] = {
+                'coffee': most_popular_coffee,
+                'count': order_count,
+                'all_coffees': coffee_counts
+            }
+    
+    return most_popular_by_season
 
-if __name__ == "__main__":
-    # Add season column to data
-    data = add_season_column(data)
+def calculate_average_revenue_per_day(data):
+    #Calculate the average total revenue per day
+    daily_revenues = {}
     
-    # Calculating all results
-    coffee_averages = calculate_average_sale_per_coffee_type(data)
-    time_averages = calculate_average_sale_per_time_of_day(data)
-    season_averages = calculate_average_sale_per_season(data)
-    highest_season_info = get_highest_sales_season(data)
+    # Sum up revenue for each day
+    for row in data:
+        date = row['Date']  # Assuming there's a Date column
+        money = row['money']
+        
+        if date not in daily_revenues:
+            daily_revenues[date] = 0
+        
+        daily_revenues[date] += money
     
-    # Write results to txt file 
-    write_results_to_txt(coffee_averages, time_averages, season_averages, highest_season_info)
-    
- 
+    # Calculate average revenue per day
+    if daily_revenues:
+        total_revenue = sum(daily_revenues.values())
+        total_days = len(daily_revenues)
+        average_revenue_per_day = total_revenue / total_days
+        
+        return {
+            'average_per_day': average_revenue_per_day,
+            'total_revenue': total_revenue,
+            'total_days': total_days,
+            'daily_revenues': daily_revenues
+        }
+    else:
+        return {
+            'average_per_day': 0,
+            'total_revenue': 0,
+            'total_days': 0,
+            'daily_revenues': {}
+        }
+
