@@ -1,3 +1,19 @@
+# Name: Jamie Kornblum
+# Course: SI 201
+# Project 1: Coffee Sales Data Analysis
+# Date: October 9, 2025
+
+# Collaborators: Reagan Leff and Claire Abbo
+
+# Who wrote what functions: 
+# Jamie: calculate_coffees_sold_per_type(), calculate_coffees_sold_per_time_of_day(), and their corresponding test functions
+# Reagan: add_season_column() (including get_season() helper function), calculate_orders_per_season(), calculate_average_coffees_sold_per_day(), and their corresponding test functions  
+# Claire: get_most_popular_coffee_per_season(), calculate_total_revenue(), write_results_to_txt(), and their corresponding test functions
+
+# We used ChatGPT to help us debug our code and help us when we ran into errors. We also used it help us to generate test cases for some of our tests.
+
+# Program Description:
+# This program reads and analyzes coffee sales data from a CSV file, calculates sales statistics by type, time of day, and season, and outputs a summary report to a text file.
 
 import csv 
 
