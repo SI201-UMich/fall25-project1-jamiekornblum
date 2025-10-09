@@ -1,7 +1,8 @@
 
 import csv 
 
-with open('coffee_data.csv', mode='r') as file:
+with open('coffee_data.csv', mode='r') as file: 
+    #reading the data
     reader = csv.DictReader(file)
     data = [row for row in reader]
     for row in data:
@@ -11,7 +12,7 @@ with open('coffee_data.csv', mode='r') as file:
         row['coffee_name'] = row['coffee_name'].strip()
 
 def calculate_average_sale_per_coffee_type(data):
-    #Calculate average sale amount for each coffee type
+    #Calculating average sale amount for each coffee type
     count = {} 
     total = {}
     for row in data:
@@ -27,9 +28,91 @@ def calculate_average_sale_per_coffee_type(data):
     return total
 
 def calculate_average_sale_per_time_of_day(data):
-    #Calculate average sale amount for each time period
-    pass
+    #Calculating average sale amount for each time period
+    count = {}
+    total = {}
+    for row in data:
+        time = row['Time_of_Day']
+        money = row['money']
+        if time not in count:
+            count[time] = 0
+            total[time] = 0
+        count[time] += 1
+        total[time] += money
+        for time in total:
+            total[time] /= count[time]
+    return total
+
+def add_season_column(data):
+    # Add a season column to the data based on month name
+    def get_season(month):
+        if month in ['December', 'January', 'February']:
+            return 'Winter'
+        elif month in ['March', 'April', 'May']:
+            return 'Spring'
+        elif month in ['June', 'July', 'August']:
+            return 'Summer'
+        elif month in ['September', 'October', 'November']:
+            return 'Fall'
+        else:
+            return 'Unknown'
+    
+    # Add season column to each row
+    for row in data:
+        month = row['Month_name']
+        row['Season'] = get_season(month)
+    return data
 
 def calculate_average_sale_per_season(data):
-    #Calculate average sale amount for each season
-    pass
+    #Calculating average sale amount for each season using the Season column
+    season_count = {}
+    season_total = {}
+    for row in data:
+        season = row['Season']  # Use the new Season column directly
+        money = row['money']
+        if season:  # Make sure season exists
+            if season not in season_count:
+                season_count[season] = 0
+                season_total[season] = 0
+            season_count[season] += 1
+            season_total[season] += money
+    for season in season_total:
+        season_total[season] /= season_count[season]
+    return season_total
+
+def get_highest_sales_season(data):
+    """Find which season has the highest total sales"""
+    season_totals = {}
+    
+    # Calculate total sales for each season
+    for row in data:
+        season = row['Season']
+        money = row['money']
+        if season:
+            if season not in season_totals:
+                season_totals[season] = 0
+            season_totals[season] += money
+    
+    # Find the season with highest total sales
+    if season_totals:
+        highest_season = max(season_totals, key=season_totals.get)
+        highest_amount = season_totals[highest_season]
+        return highest_season, highest_amount, season_totals
+    else:
+        return None, 0, {}
+
+
+if __name__ == "__main__":
+    # Add season column to data
+    data = add_season_column(data)
+    
+    # Calculating all results
+    coffee_averages = calculate_average_sale_per_coffee_type(data)
+    time_averages = calculate_average_sale_per_time_of_day(data)
+    season_averages = calculate_average_sale_per_season(data)
+    highest_season_info = get_highest_sales_season(data)
+    
+    # Write results to txt file 
+    write_results_to_txt(coffee_averages, time_averages, season_averages, highest_season_info)
+    
+ 
