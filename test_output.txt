@@ -1,0 +1,21 @@
+COFFEE SALES ANALYSIS RESULTS
+COFFEES SOLD PER TYPE:
+Latte: 2 coffees sold (MOST ORDERED)
+Espresso: 1 coffees sold
+
+COFFEES SOLD PER TIME OF DAY:
+Morning: 2 coffees sold (PEAK TIME)
+Afternoon: 1 coffees sold
+
+ORDERS PER SEASON:
+Winter: 3 orders (MOST ORDERS)
+Summer: 1 orders
+
+MOST POPULAR COFFEE PER SEASON:
+ Winter: Latte (2 orders)
+
+FINAL COFFEE SALES ANALYSIS:
+Average Coffees Sold Per Day: 1.5 coffees
+Total Coffees Sold: 3 coffees
+Total Days: 2 days
+Total Revenue: $6.00

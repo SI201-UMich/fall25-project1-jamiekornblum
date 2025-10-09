@@ -42,15 +42,16 @@ def add_season_column(data):
     return data
 
 def calculate_orders_per_season(data):
-    #Counts how many total coffee orders there were in each season
     season_counts = {}
     
     for row in data:
-        season = row['Season']
-        if season:  # Making sure season exists
+        season = row.get('Season')  
+        if season:  
             if season not in season_counts:
                 season_counts[season] = 0
-            season_counts[season] += 1  # Counting each order
+            season_counts[season] += 1  
+    
+    return season_counts
     
     return season_counts
 
