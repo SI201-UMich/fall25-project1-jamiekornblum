@@ -10,7 +10,7 @@
 # Reagan: add_season_column() (including get_season() helper function), calculate_orders_per_season(), calculate_average_coffees_sold_per_day(), and their corresponding test functions  
 # Claire: get_most_popular_coffee_per_season(), calculate_total_revenue(), write_results_to_txt(), and their corresponding test functions
 
-# We used ChatGPT to help us debug our code and help us when we ran into errors. We also used it help us to generate test cases for some of our tests.
+# We used ChatGPT to help us debug our code and help us when we ran into errors. We also used it help us to generate the data for the test cases for some our tests and help us to create some of them.
 
 # Program Description:
 # This program reads and analyzes coffee sales data from a CSV file, calculates sales statistics by type, time of day, and season, and outputs a summary report to a text file.
